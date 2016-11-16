@@ -64,15 +64,21 @@ public class Frac {
         Frac x=new Frac(this.a, this.b);
         Frac y=a.makeShort();
         x=x.makeShort();
-        if (x==y) return true;
+        if (x.a==y.a&&x.b==y.b) return true;
         return false;
     }
     int compareTo(Frac a){
         Frac x=new Frac(this.a, this.b);
         Frac y=a.makeShort();
         x=x.makeShort();
-        if ((x.a>y.a&&x.b==y.b)||(x.a>=y.a&&x.b<y.b)) return 1;
-        if (x==y) return 0;
+        if (x.isEqual(y)) return 0;
+        if (x.a>y.a&&x.b==y.b) return 1;
+        if (x.b>y.b||x.b<y.b){
+            int f=x.b;
+            x=new Frac (x.a*y.b, x.b*y.b);
+            y=new Frac (y.a*f, x.b);
+            if (x.a>y.a) return 1;
+        }
         return -1;
     }
     public String toString(){
